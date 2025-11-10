@@ -1,7 +1,12 @@
-// popup.js
-// Day 1: local mock AI-detector prototype logic
+// send a PING message to verify background connectivity
+chrome.runtime.sendMessage({ type: "PING" }, (response) => {
+  if (chrome.runtime.lastError) {
+    console.warn("Background not available yet:", chrome.runtime.lastError);
+  } else {
+    console.log("Received response from background:", response);
+  }
+});
 
-// 1) helper: simple heuristic mock detector
 function mockAIDetector(text) {
     // Normalize whitespace and short-circuit empty text
     const clean = text.trim();
