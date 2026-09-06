@@ -4,30 +4,36 @@
   <meta charset="utf-8" />
   <title>QuillBot AI Detector</title>
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <style>
-    body { font-family: system-ui, Arial, sans-serif; width: 320px; padding: 12px; box-sizing: border-box; }
-    textarea { width: 100%; height: 120px; resize: vertical; padding: 8px; font-size: 14px; }
-    button { width: 100%; margin-top: 8px; padding: 8px; font-size: 14px; cursor: pointer; }
-    #score { margin-top: 10px; font-weight: 600; }
-    #explain { margin-top: 6px; color: #444; font-size: 13px; }
-    .small { font-size: 12px; color: #666; margin-top: 8px; }
-  </style>
+  <link rel="stylesheet" href="popup.css" />
 </head>
 <body>
-  <h3>QuillBot AI Detector</h3>
+  <header class="app-header">
+    <div class="logo">AI</div>
+    <div>
+      <h1>AI Detector</h1>
+      <p class="subtitle">QuillBot prototype</p>
+    </div>
+  </header>
 
-  <textarea id="inputText" placeholder="Paste text to analyze..."></textarea>
+  <div class="glass-card panel">
+    <textarea id="inputText" placeholder="Paste text to analyze..."></textarea>
+    <div class="controls">
+      <select id="mode">
+        <option value="quick">Quick (local mock)</option>
+        <option value="detailed">Detailed (placeholder)</option>
+      </select>
+      <button id="detectBtn" class="btn-primary">Detect</button>
+    </div>
+  </div>
 
-  <select id="mode">
-    <option value="quick">Quick (local mock)</option>
-    <option value="detailed">Detailed (placeholder)</option>
-  </select>
+  <div class="glass-card result-card">
+    <div class="score-row">
+      <span id="score" aria-live="polite"></span>
+    </div>
+    <div id="explain"></div>
+  </div>
 
-  <button id="detectBtn">Detect</button>
-
-  <div id="score" aria-live="polite"></div>
-  <div id="explain"></div>
-  <div class="small">Prototype — results are mock local estimates.</div>
+  <p class="disclaimer">Prototype — results are mock local estimates.</p>
 
   <script src="popup.js"></script>
 </body>

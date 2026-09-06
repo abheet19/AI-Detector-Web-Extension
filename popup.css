@@ -1,0 +1,184 @@
+/* Popup styling — adapted from abheet19/assets/shared-ui/theme.css tokens.
+   Google Fonts are skipped (extension popups can't reliably fetch external
+   fonts under CSP), so this falls back to system-ui / Segoe UI stacks that
+   approximate the same display/body/mono hierarchy. */
+:root {
+  --bg: #0b0d12;
+  --bg-elevated: #11141c;
+  --glass: rgba(255, 255, 255, 0.04);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --text: #e8eaf0;
+  --text-dim: #9aa1b2;
+  --accent: #61dafb;
+  --accent-2: #3178c6;
+  --success: #4ade80;
+  --danger: #f87171;
+  --radius: 14px;
+  --font-display: 'Segoe UI Semibold', system-ui, -apple-system, sans-serif;
+  --font-body: system-ui, 'Segoe UI', -apple-system, sans-serif;
+  --font-mono: Consolas, 'Courier New', monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  width: 340px;
+  margin: 0;
+  padding: 14px;
+  background: radial-gradient(600px 300px at 20% -10%, #16233a55, transparent),
+              radial-gradient(500px 250px at 90% 10%, #1a2a1a33, transparent),
+              var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+}
+
+.app-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.logo {
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+  border-radius: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 13px;
+  color: #061018;
+  background: linear-gradient(135deg, var(--accent-2), var(--accent));
+}
+
+.app-header h1 {
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 700;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.subtitle {
+  margin: 1px 0 0;
+  font-size: 11px;
+  color: var(--text-dim);
+}
+
+.glass-card {
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius);
+  backdrop-filter: blur(16px) saturate(140%);
+  -webkit-backdrop-filter: blur(16px) saturate(140%);
+  padding: 12px;
+}
+
+.panel {
+  margin-bottom: 10px;
+}
+
+textarea {
+  width: 100%;
+  height: 110px;
+  resize: vertical;
+  padding: 8px 10px;
+  font-size: 13px;
+  font-family: var(--font-body);
+  color: var(--text);
+  background: var(--bg-elevated);
+  border: 1px solid var(--glass-border);
+  border-radius: 10px;
+  outline: none;
+}
+
+textarea::placeholder {
+  color: var(--text-dim);
+}
+
+textarea:focus {
+  border-color: var(--accent-2);
+  box-shadow: 0 0 0 2px rgba(49, 120, 198, 0.25);
+}
+
+.controls {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+select {
+  flex: 1;
+  padding: 8px 8px;
+  font-size: 12px;
+  font-family: var(--font-body);
+  color: var(--text);
+  background: var(--bg-elevated);
+  border: 1px solid var(--glass-border);
+  border-radius: 10px;
+  outline: none;
+}
+
+.btn-primary {
+  flex: 0 0 auto;
+  padding: 8px 18px;
+  font-size: 13px;
+  font-family: var(--font-body);
+  background: linear-gradient(135deg, var(--accent-2), var(--accent));
+  color: #061018;
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 24px -8px var(--accent-2);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+.result-card {
+  min-height: 56px;
+}
+
+.score-row {
+  display: flex;
+  align-items: center;
+  min-height: 22px;
+}
+
+#score {
+  font-family: var(--font-mono);
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  color: var(--text-dim);
+}
+
+#score:not(:empty) {
+  color: var(--text);
+}
+
+#explain {
+  margin-top: 4px;
+  font-size: 12px;
+  color: var(--text-dim);
+  min-height: 14px;
+}
+
+.disclaimer {
+  margin: 10px 2px 0;
+  font-size: 11px;
+  color: var(--text-dim);
+  text-align: center;
+}
