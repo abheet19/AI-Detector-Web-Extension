@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>AI Detector — Demo</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="page">
+    <header class="app-header">
+      <div class="logo">AI</div>
+      <div>
+        <h1>AI Detector</h1>
+        <p class="subtitle">Client-side heuristic demo</p>
+      </div>
+    </header>
+
+    <div class="glass-card panel">
+      <textarea id="inputText" placeholder="Paste text to analyze..."></textarea>
+      <div class="controls">
+        <button id="detectBtn" class="btn-primary">Detect</button>
+      </div>
+    </div>
+
+    <div class="glass-card result-card">
+      <div class="score-row">
+        <span id="score" aria-live="polite"></span>
+      </div>
+      <div id="explain"></div>
+    </div>
+
+    <p class="disclaimer">
+      Heuristic estimate, computed entirely in your browser — nothing is sent
+      anywhere. Not a state-of-the-art classifier; see the
+      <a href="https://github.com/abheet19/AI-Detector-Web-Extension#how-detection-works">README</a>
+      for how it works.
+    </p>
+  </div>
+
+  <!-- Same detection module used by the Chrome extension's popup, kept in
+       sync here at deploy time by the GitHub Pages workflow (see
+       ../.github/workflows/deploy-pages.yml). -->
+  <script src="detector.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

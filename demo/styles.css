@@ -1,13 +1,5 @@
-/* Popup styling — dark glass UI with its own rose/alert palette.
-   Google Fonts are skipped (extension popups can't reliably fetch external
-   fonts under CSP), so this falls back to system-ui / Segoe UI stacks that
-   approximate the same display/body/mono hierarchy.
-
-   Palette (deliberately distinct from this author's other projects —
-   ShieldAI's steel-blue, Smart-Rephraser-Lite's violet, Textify's copper,
-   HealthFlow's emerald): a rose/alert family, fitting a "detector" product
-   that flags something for your attention rather than quietly assisting.
-
+/* Demo page styling — same rose/alert tokens as the extension popup
+   (popup.css), laid out for a full browser window instead of a 340px popup.
      #0D0A0C ground · #F76B8A rose (bright) · #E8496C rose (mid) ·
      #B02E4C rose (deep) · #F5E7EB bone text
 */
@@ -21,9 +13,7 @@
   --accent: #f76b8a;
   --accent-2: #e8496c;
   --accent-3: #b02e4c;
-  --success: #4ade80;
-  --danger: #f87171;
-  --radius: 14px;
+  --radius: 16px;
   --font-display: 'Segoe UI Semibold', system-ui, -apple-system, sans-serif;
   --font-body: system-ui, 'Segoe UI', -apple-system, sans-serif;
   --font-mono: Consolas, 'Courier New', monospace;
@@ -33,50 +23,60 @@
   box-sizing: border-box;
 }
 
+html, body {
+  height: 100%;
+}
+
 body {
-  width: 340px;
   margin: 0;
-  padding: 14px;
-  background: radial-gradient(600px 300px at 20% -10%, #3a1620aa, transparent),
-              radial-gradient(500px 250px at 90% 10%, #2a1418aa, transparent),
+  background: radial-gradient(900px 500px at 15% -10%, #3a1620aa, transparent),
+              radial-gradient(700px 400px at 90% 0%, #2a1418aa, transparent),
               var(--bg);
   color: var(--text);
   font-family: var(--font-body);
+  display: flex;
+  justify-content: center;
+  padding: 48px 16px;
+}
+
+.page {
+  width: 100%;
+  max-width: 560px;
 }
 
 .app-header {
   display: flex;
   align-items: center;
-  gap: 10px;
-  margin-bottom: 12px;
+  gap: 14px;
+  margin-bottom: 20px;
 }
 
 .logo {
-  width: 32px;
-  height: 32px;
+  width: 44px;
+  height: 44px;
   flex-shrink: 0;
-  border-radius: 9px;
+  border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: 13px;
+  font-size: 17px;
   color: #2b0410;
   background: linear-gradient(135deg, var(--accent-3), var(--accent));
 }
 
 .app-header h1 {
   font-family: var(--font-display);
-  font-size: 15px;
+  font-size: 22px;
   font-weight: 700;
   margin: 0;
   line-height: 1.2;
 }
 
 .subtitle {
-  margin: 1px 0 0;
-  font-size: 11px;
+  margin: 2px 0 0;
+  font-size: 13px;
   color: var(--text-dim);
 }
 
@@ -86,19 +86,19 @@ body {
   border-radius: var(--radius);
   backdrop-filter: blur(16px) saturate(140%);
   -webkit-backdrop-filter: blur(16px) saturate(140%);
-  padding: 12px;
+  padding: 18px;
 }
 
 .panel {
-  margin-bottom: 10px;
+  margin-bottom: 14px;
 }
 
 textarea {
   width: 100%;
-  height: 110px;
+  height: 180px;
   resize: vertical;
-  padding: 8px 10px;
-  font-size: 13px;
+  padding: 12px 14px;
+  font-size: 14px;
   font-family: var(--font-body);
   color: var(--text);
   background: var(--bg-elevated);
@@ -119,13 +119,13 @@ textarea:focus {
 .controls {
   display: flex;
   gap: 8px;
-  margin-top: 10px;
+  margin-top: 14px;
 }
 
 .btn-primary {
-  flex: 1;
-  padding: 8px 18px;
-  font-size: 13px;
+  flex: 0 0 auto;
+  padding: 10px 26px;
+  font-size: 14px;
   font-family: var(--font-body);
   background: linear-gradient(135deg, var(--accent-3), var(--accent));
   color: #2b0410;
@@ -146,18 +146,18 @@ textarea:focus {
 }
 
 .result-card {
-  min-height: 56px;
+  min-height: 64px;
 }
 
 .score-row {
   display: flex;
   align-items: center;
-  min-height: 22px;
+  min-height: 26px;
 }
 
 #score {
   font-family: var(--font-mono);
-  font-size: 15px;
+  font-size: 18px;
   font-weight: 600;
   letter-spacing: 0.2px;
   color: var(--text-dim);
@@ -168,15 +168,21 @@ textarea:focus {
 }
 
 #explain {
-  margin-top: 4px;
-  font-size: 12px;
+  margin-top: 6px;
+  font-size: 13px;
+  line-height: 1.5;
   color: var(--text-dim);
-  min-height: 14px;
+  min-height: 16px;
 }
 
 .disclaimer {
-  margin: 10px 2px 0;
-  font-size: 11px;
+  margin: 16px 4px 0;
+  font-size: 12px;
   color: var(--text-dim);
   text-align: center;
+  line-height: 1.5;
+}
+
+.disclaimer a {
+  color: var(--accent);
 }

@@ -1,1 +1,5 @@
 /venv
+
+# Copied into place by the GitHub Pages workflow at deploy time — the
+# canonical source of truth is /detector.js, not a second checked-in copy.
+/demo/detector.js

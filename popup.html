@@ -18,10 +18,6 @@
   <div class="glass-card panel">
     <textarea id="inputText" placeholder="Paste text to analyze..."></textarea>
     <div class="controls">
-      <select id="mode">
-        <option value="quick">Quick (local mock)</option>
-        <option value="detailed">Detailed (placeholder)</option>
-      </select>
       <button id="detectBtn" class="btn-primary">Detect</button>
     </div>
   </div>
@@ -33,8 +29,9 @@
     <div id="explain"></div>
   </div>
 
-  <p class="disclaimer">Prototype — results are mock local estimates.</p>
+  <p class="disclaimer">Heuristic estimate, computed locally — not a state-of-the-art classifier.</p>
 
+  <script src="detector.js"></script>
   <script src="popup.js"></script>
 </body>
 </html>

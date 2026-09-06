@@ -1,4 +1,5 @@
-//  DOM references
+// Wires the shared AIDetector module (detector.js) to this standalone page.
+// Same logic as popup.js — this is the plain-webpage twin of the extension popup.
 const input = document.getElementById("inputText");
 const detectBtn = document.getElementById("detectBtn");
 const scoreEl = document.getElementById("score");
@@ -12,7 +13,6 @@ detectBtn.addEventListener("click", () => {
     return;
   }
 
-  // Runs fully client-side — no network call, no background round-trip.
   const result = AIDetector.analyzeText(text);
 
   if (result.score === 0 && (result.label === "No text" || result.label === "Not enough text")) {

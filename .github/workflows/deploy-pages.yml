@@ -1,0 +1,40 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# GitHub Pages deploys need write access to the Pages API itself, on top of
+# the read access Actions gets by default.
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      # No build step — this is a static demo. The one wrinkle: detector.js
+      # lives at the repo root so the Chrome extension's popup can load it
+      # too, but Pages only publishes the demo/ folder we upload below, so
+      # copy the canonical file into place first.
+      - name: Copy shared detector module into demo/
+        run: cp detector.js demo/detector.js
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: demo
+
+      - id: deployment
+        uses: actions/deploy-pages@v4
