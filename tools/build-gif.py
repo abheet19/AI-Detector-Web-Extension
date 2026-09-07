@@ -42,12 +42,38 @@ palette = strip.quantize(colors=256, method=Image.MEDIANCUT)
 # dither=Image.Dither.NONE is the whole trick — see the module docstring.
 quantised = [f.quantize(palette=palette, dither=Image.Dither.NONE) for f in frames]
 
+# Every captured frame is nominally FPS-spaced, but record-demo.mjs still holds
+# on a result by writing several identical screenshots in a row. Pillow's GIF
+# `optimize` pass merges consecutive byte-identical frames on its own — it will
+# sum an unbounded run of duplicates into one long-duration frame regardless of
+# what we ask for, so the cap has to be enforced explicitly, here, by capping
+# how many duplicate frames are allowed to survive into the encoded GIF.
+FRAME_MS = round(1000 / FPS)
+MAX_HOLD_MS = 1500
+MAX_RUN = max(1, MAX_HOLD_MS // FRAME_MS)  # consecutive identical frames allowed
+
+deduped = []
+run_bytes = None
+run_len = 0
+for f in quantised:
+    b = f.tobytes()
+    if b == run_bytes:
+        run_len += 1
+        if run_len > MAX_RUN:
+            continue  # drop the surplus — the hold is already at the cap
+    else:
+        run_bytes = b
+        run_len = 1
+    deduped.append(f)
+quantised = deduped
+durations = [FRAME_MS] * len(quantised)
+
 OUT.parent.mkdir(parents=True, exist_ok=True)
 quantised[0].save(
     OUT,
     save_all=True,
     append_images=quantised[1:],
-    duration=round(1000 / FPS),
+    duration=durations,
     loop=0,
     optimize=True,
     disposal=1,

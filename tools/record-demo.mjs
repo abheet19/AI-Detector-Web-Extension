@@ -108,17 +108,17 @@ await page.evaluate(() => document.activeElement?.blur?.());
 // clip must loop, so we open AND close on the high-score result.
 await page.fill("#inputText", AI_TEXT);
 const first = await detect();
-await shot(18); // opening hold — this is the thumbnail
+await shot(11); // opening hold (~1.4s at 8fps) — this is the thumbnail
 
 await clear();
 await typeInChunks(HUMAN_TEXT);
 const human = await detect();
-await shot(34); // hold long enough to read score + explanation
+await shot(11); // capped hold — long enough to read score + explanation, not frozen
 
 await clear();
 await typeInChunks(AI_TEXT);
 const ai = await detect();
-await shot(40);
+await shot(11);
 
 await browser.close();
 
