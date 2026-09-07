@@ -12,6 +12,12 @@
 
 <br>
 
+<img src="docs/demo/ai-detector-demo.gif" alt="The demo page scoring an LLM-boilerplate paragraph at 77% &quot;Likely AI-generated&quot;, then a casual human paragraph at 5% &quot;Likely human-written&quot;, with the explanation naming which signals fired each time." width="912">
+
+<sub>Real capture of the <a href="https://abheet19.github.io/AI-Detector-Web-Extension/">live demo page</a>, no edits: a paragraph of LLM boilerplate scores <b>77% "Likely AI-generated"</b>, a casual human paragraph scores <b>5% "Likely human-written"</b>. The score is the boring half — the panel underneath names the signals that fired. It is still a <a href="#how-detection-works">surface-level heuristic</a>, not a trained classifier.</sub>
+
+<br>
+
 </div>
 
 > [!NOTE]
@@ -29,6 +35,7 @@
 - [Design](#design)
 - [Screenshots](#screenshots)
 - [Run it](#run-it)
+- [Recording the demo GIF](#recording-the-demo-gif)
 - [Project layout](#project-layout)
 
 ---
@@ -107,11 +114,29 @@ Same tokens drive both the extension popup (`popup.css`) and the demo page (`dem
 
 **Live demo page**
 
-`https://abheet19.github.io/AI-Detector-Web-Extension/`
+**<https://abheet19.github.io/AI-Detector-Web-Extension/>** — live.
 
-The page and its deploy workflow (`.github/workflows/deploy-pages.yml`) are in place, but GitHub Pages
-still needs the one manual step of setting **Settings → Pages → Source → GitHub Actions** in this
-repo — that can't be done from a `git push`, so until it's flipped on the link above will 404.
+Same `detector.js`, no build step, nothing sent anywhere. The extension itself can't be "deployed"
+anywhere clickable, so this page is the running artefact; it's published from `demo/` by
+`.github/workflows/deploy-pages.yml`.
+
+## Recording the demo GIF
+
+The GIF at the top is regenerated from the live page — never hand-assembled — so it can't drift from
+what the detector actually returns:
+
+```bash
+mkdir /tmp/rec && cd /tmp/rec
+npm i playwright && npx playwright install chromium   # recording-time only; the extension ships zero deps
+node /path/to/AI-Detector-Web-Extension/tools/record-demo.mjs ./frames
+python /path/to/AI-Detector-Web-Extension/tools/build-gif.py ./frames        /path/to/AI-Detector-Web-Extension/docs/demo/ai-detector-demo.gif
+```
+
+`record-demo.mjs` drives <https://abheet19.github.io/AI-Detector-Web-Extension/> with Playwright and
+writes PNG frames; it prints the two scores it observed so a changed result is obvious. `build-gif.py`
+(Pillow, no ffmpeg) downscales to 912px and quantises against one shared 256-colour palette with
+**dithering off** — dither noise defeats GIF inter-frame compression on a flat dark UI and multiplies
+the file size for no visible gain.
 
 ## Project layout
 
@@ -123,4 +148,6 @@ popup.css              Popup styling (rose palette)
 detector.js            Shared heuristic detector — the one piece of real logic
 demo/                  Standalone static page, same detector.js, deployed to Pages
 .github/workflows/     GitHub Pages deploy workflow
+tools/                 Demo-GIF recorder (Playwright) + assembler (Pillow)
+docs/demo/             The README hero GIF
 ```
